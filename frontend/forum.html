@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT-BIRD - Форум</title>
+    <link id="theme-style" rel="stylesheet" href="style.css">
+    <script src="darktheme.js" defer></script>
+</head>
+
+<body>
+    <!-- Шапка -->
+    <header>
+        <h1>IT-BIRD</h1>
+        <nav>
+            <a href="index.html">Главная</a>
+            /
+            <a href="register.html">Регистрация</a>
+            /
+            <a href="login.html">Вход</a>
+            || Для авторизованных:
+            <a href="profile.html">Мой Профиль</a>
+            /
+            <a href="chats.html">Чаты</a>
+            /
+            <a href="users.html">Пользователи</a>
+            /
+            <a href="forum.html">Форум</a>
+            /
+            <a href="xakatons.html">IT-Хакатоны</a>
+        </nav>
+    </header>
+
+    <!-- Основной контент -->
+    <main>
+        <section class="forum">
+            <h2>Форум</h2>
+            <p>Добро пожаловать на форум! Задавайте вопросы, делитесь опытом, находите решения.</p>
+            <button class="btn" id="ask-question-btn">Задать вопрос</button>
+
+            <!-- Список вопросов -->
+            <!-- Список вопросов -->
+            <div class="questions">
+                <article class="question">
+                    <h3>Тема: Как работать с API?</h3>
+                    <p>Описание: Не могу понять, как правильно обращаться к REST API. Помогите разобраться.</p>
+                    <p><strong>Пользователь:</strong> Иван Иванов</p>
+                    <p><strong>Дата:</strong> 20.11.2024</p>
+                    <p><strong>Статус:</strong> Открыт</p>
+                    <div class="actions">
+                        <button class="btn resolve-btn">Вопрос решён</button>
+                        <button class="btn reply-btn">Ответить на вопрос</button>
+                        <button class="btn view-answers-btn" data-question-id="1">Посмотреть ответы</button>
+                    </div>
+                    <div class="answers hidden" id="answers-1">
+                        <!-- Ответы будут подгружены сюда -->
+                        <div id="user-answer">
+                            <h1>Максим</h1>
+                            <p><i>Через AJAX "прикреплён файл/скрин"</i></p>
+                        </div>
+                    </div>
+                </article>
+                <!-- Пример решённого вопроса -->
+                <article class="question resolved">
+                    <h3>Тема: Ошибка в JavaScript</h3>
+                    <p>Описание: У меня возникает ошибка "undefined is not a function". Что это может быть?</p>
+                    <p><strong>Пользователь:</strong> Петр Петров</p>
+                    <p><strong>Дата:</strong> 19.11.2024</p>
+                    <p><strong>Статус:</strong> Решён</p>
+                    <div class="actions">
+                        <button class="btn view-answers-btn" data-question-id="2">Посмотреть ответы</button>
+                    </div>
+                    <div class="answers hidden" id="answers-2">
+                        <!-- Ответы будут подгружены сюда -->
+                        <div id="user-answer">
+                            <h1>Максим</h1>
+                            <p><i>Неизвестная функция</i></p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Модальное окно для создания вопроса -->
+    <div id="modal-question" class="modal hidden">
+        <div class="modal-content">
+            <h3>Задать вопрос</h3>
+            <form class="modal-form">
+                <label for="question-title">Тема вопроса</label>
+                <input type="text" id="question-title" name="title" required>
+
+                <label for="question-description">Описание</label>
+                <textarea id="question-description"  name="description" required></textarea>
+
+                <label for="question-files">Прикрепить файлы</label>
+                <input type="file" id="question-files" name="files" multiple>
+
+                <button type="submit" class="btn">Отправить</button>
+                <button type="button" class="btn cancel-btn">Отмена</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для ответа -->
+    <div id="modal-reply" class="modal hidden">
+        <div class="modal-content">
+            <h3>Ответить на вопрос</h3>
+            <form>
+                <p><strong>Вопрос:</strong> Как работать с API?</p>
+                <label for="reply-text">Ваш ответ</label>
+                <textarea id="reply-text" name="reply" required></textarea>
+                <button type="submit" class="btn">Отправить</button>
+                <button type="button" class="btn cancel-btn">Отмена</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Подвал -->
+    <footer>
+        <button id="theme-toggle" class="btn">Тёмная тема</button>
+        <p>&copy; 2024 IT-BIRD. Все права защищены.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Кнопка для открытия модального окна создания вопроса
+            const askQuestionBtn = document.getElementById('ask-question-btn');
+            const modalQuestion = document.getElementById('modal-question');
+            const modalReply = document.getElementById('modal-reply');
+            const cancelButtons = document.querySelectorAll('.cancel-btn');
+            const replyButtons = document.querySelectorAll('.reply-btn'); // Новая строка
+            const viewAnswerButtons = document.querySelectorAll('.view-answers-btn');
+
+            // Показать модальное окно для создания вопроса
+            askQuestionBtn.addEventListener('click', () => modalQuestion.classList.remove('hidden'));
+
+            // Показать модальное окно для ответа на вопрос
+            replyButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const questionTitle = btn.closest('.question').querySelector('h3').textContent;
+                    modalReply.querySelector('p').textContent = `Вопрос: ${questionTitle}`; // Заполняем вопрос
+                    modalReply.classList.remove('hidden');
+                });
+            });
+
+            // Скрыть модальные окна
+            cancelButtons.forEach(btn => btn.addEventListener('click', () => {
+                modalQuestion.classList.add('hidden');
+                modalReply.classList.add('hidden');
+            }));
+
+            // Показать/скрыть ответы на вопрос
+            viewAnswerButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const questionId = btn.dataset.questionId;
+                    const answersDiv = document.getElementById(`answers-${questionId}`);
+                    answersDiv.classList.toggle('hidden');
+                });
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

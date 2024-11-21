@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чаты</title>
+    <link id="theme-style" rel="stylesheet" href="style.css">
+    <script src="darktheme.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Шапка сайта -->
+    <header>
+        <h1>IT-BIRD</h1>
+        <nav>
+            <a href="index.html">Главная</a>
+            /
+            <a href="register.html">Регистрация</a>
+            /
+            <a href="login.html">Вход</a>
+            || For Auth Users ->
+            <!-- Только если пользователь авторизован -->
+            <a href="profile.html">Мой Профиль</a>
+            /
+            <a href="chats.html">Чаты</a>
+            /
+            <a href="users.html">Пользователи</a>
+            /
+            <a href="forum.html">Форум</a>
+            /
+            <a href="xakatons.html">IT-Хакатоны</a>
+        </nav>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="chat-main">
+        <!-- Левая колонка со списком пользователей -->
+        <aside class="user-list">
+            <h3>Пользователи</h3>
+            <ul>
+                <a href="#" onclick="selectChat('Максим')">
+                    <li>
+                        <img src="./images/users-avatars/Maksim.jpg" alt="avatar">
+                        <p>Максим</p>
+                    </li>
+                </a>
+                <a href="#" onclick="selectChat('Максим')">
+                    <li>
+                        <img src="./images/users-avatars/Maksim.jpg" alt="avatar">
+                        <p>Максим</p>
+                    </li>
+                </a>
+                </a>
+                <a href="#" onclick="selectChat('Максим')">
+                    <li>
+                        <img src="./images/users-avatars/Maksim.jpg" alt="avatar">
+                        <p>Максим</p>
+                    </li>
+                </a>
+                <a href="#" onclick="selectChat('Максим')">
+                    <li>
+                        <img src="./images/users-avatars/Maksim.jpg" alt="avatar">
+                        <p>Максим</p>
+                    </li>
+                </a>
+                <a href="#" onclick="selectChat('Максим')">
+                    <li>
+                        <img src="./images/users-avatars/Maksim.jpg" alt="avatar">
+                        <p>Максим</p>
+                    </li>
+                </a>
+                <a href="#" onclick="selectChat('Максим')">
+                    <li>
+                        <img src="./images/users-avatars/Maksim.jpg" alt="avatar">
+                        <p>Максим</p>
+                    </li>
+                </a>
+                <a href="#" onclick="selectChat('Максим')">
+                    <li>
+                        <img src="./images/users-avatars/Maksim.jpg" alt="avatar">
+                        <p>Максим</p>
+                    </li>
+                </a>
+                <a href="#" onclick="selectChat('Вика')">
+                    <li>
+                        <img src="./images/users-avatars/Vika.jpg" alt="avatar">
+                        <p>Вика</p>
+                    </li>
+                </a>
+                <a href="#" onclick="selectChat('Никита')">
+                    <li>
+                        <img src="./images/users-avatars/Nikita.jpg" alt="avatar">
+                        <p>Никита</p>
+                    </li>
+                </a>
+                <a href="#" onclick="selectChat('Алексей')">
+                    <li>
+                        <img src="./images/users-avatars/ALeksei.jpg" alt="avatar">
+                        <p>Алексей</p>
+                    </li>
+                </a>
+            </ul>
+        </aside>
+
+        <!-- Правая колонка с диалогом -->
+        <section class="chat-box">
+            <div class="chat-header">
+                <h2 id="chat-username">Выберите пользователя</h2>
+            </div>
+            <div class="chat-messages" id="chat-messages"></div>
+        </section>
+
+        <!-- Поле ввода сообщения -->
+        <div class="chat-input-container">
+            <input type="text" placeholder="Введите сообщение..." class="chat-input" id="chat-input">
+            <button class="chat-send btn" onclick="sendMessage()">Отправить</button>
+        </div>
+    </main>
+
+
+    <!-- Подвал -->
+    <footer>
+        <button id="theme-toggle" class="btn">Тёмная тема</button>
+        <p>&copy; 2024 IT-BIRD. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Функция для выбора чата и отображения имени пользователя
+        function selectChat(username) {
+            document.getElementById('chat-username').textContent = username;
+            document.getElementById('chat-messages').innerHTML = ''; // Очистка чата
+        }
+
+        // Функция для отправки сообщения
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (message) {
+                const chatMessages = document.getElementById('chat-messages');
+                const messageElement = document.createElement('p');
+                messageElement.innerHTML = `<strong>Вы:</strong> ${message}`;
+                chatMessages.appendChild(messageElement);
+                input.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+    </script>
+</body>
+
+</html>

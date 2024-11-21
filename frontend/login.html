@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link id="theme-style" rel="stylesheet" href="style.css">
+    <script src="darktheme.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Шапка сайта -->
+    <header>
+        <h1>IT-BIRD</h1>
+        <nav>
+            <a href="index.html">Главная</a>
+            /
+            <a href="register.html">Регистрация</a>
+            /
+            <a href="login.html">Вход</a>
+            || For Auth Users ->
+            <!-- Только если пользователь авторизован -->
+            <a href="profile.html">Мой Профиль</a>
+            /
+            <a href="chats.html">Чаты</a>
+            /
+            <a href="users.html">Пользователи</a>
+            /
+            <a href="forum.html">Форум</a>
+            /
+            <a href="xakatons.html">IT-Хакатоны</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <img style="width: 14%; display: none;" id="logo-test" src="./images/logo/logo-ITBIRD.png" alt="IT-BIRD">
+
+        <h1>Вход</h1>
+
+        <section>
+            <form id="loginForm" action="/api/auth/login" method="post">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Войти</button>
+            </form>
+            <a href="/api/auth/github" class="btn">Войти через GitHub</a>
+        </section>
+    </main>
+
+    <footer>
+        <button id="theme-toggle" class="btn">Тёмная тема</button>
+        <p>&copy; 2024 IT-BIRD</p>
+    </footer>
+</body>
+
+</html>
